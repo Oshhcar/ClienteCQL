@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header text-center">
+        <h1 class="h4 mb-1 font-weight-normal">
+            Iniciar Sesión en CQL Teacher
+        </h1>
+      </div>
+      <br>
+      <div class="text-center">
+          <img src="../../../assets/logo.jpg" alt="USAC" weight="200" height="140">
+      </div>
+      <div class="card-body">
+        <form #formLogin="ngForm" name="loginForm" (ngSubmit)="onLogin(formLogin)">
+            <div class="alert alert-danger"  *ngIf="error">{{error}}</div>
+          <div class="form-group">
+            <div class="form-label-group">
+              <input type="text" 
+                id="inputUser"
+                name="inputUser" 
+                class="form-control" 
+                placeholder="Usuario" 
+                [(ngModel)]="user.usuario"
+                #userUsuario="ngModel" 
+                required>
+              <label for="inputUser">Usuario</label>
+              <div class="alert alert-danger" *ngIf="userUsuario.errors?.required && userUsuario.touched">
+                El <span class="alert-link">usuario</span> es requerido.
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-label-group">
+              <input type="password" 
+                id="inputPassword"
+                name="inputPassword" 
+                class="form-control" 
+                placeholder="Contraseña" 
+                [(ngModel)]="user.clave" 
+                #userClave="ngModel"
+                required>
+              <label for="inputPassword">Contraseña</label>
+              <div class="alert alert-danger" *ngIf="userClave.errors?.required && userClave.touched">
+                La <span class="alert-link">contraseña</span> es requerida.
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value="remember-me">
+                  Recordar mis datos
+              </label>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block " type="submit">Iniciar Sesión</button>
+        </form>
+        <!--
+        <div class="text-center">
+          <a class="d-block small mt-3" href="#" routerLink="/">¿Olvidaste tu contraseña?</a>
+        </div>
+        -->
+      </div>
+    </div>
+  </div>

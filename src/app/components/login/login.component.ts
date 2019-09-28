@@ -6,6 +6,8 @@ import { UserInterface } from 'src/app/models/user.interface';
 import { isNullOrUndefined } from 'util';
 import { NgForm } from '@angular/forms';
 
+const parserLUP = require('../../parser/parserLup');
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -43,7 +45,20 @@ export class LoginComponent implements OnInit {
       this.authService.loginUser(this.user.usuario, this.user.clave)
       .subscribe( data => {
         if(data.error == null){
-          console.log(data);
+          console.log(data.toString());
+
+          const ast = parserLUP.parse(data.toString());
+
+          if(!isNullOrUndefined(ast)){
+            let res = ast.getLogin();
+            if(res){
+              this.authService.setUser(this.user);
+              this.router.navigate(['/inicio']);
+            } else {
+              this.error = 'El usuario y la contraseña no coinciden.';
+            }
+          }
+
           //this.authService.setUser(data.user);
           this.router.navigate(['/inicio']);
         }

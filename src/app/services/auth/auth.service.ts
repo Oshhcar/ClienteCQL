@@ -43,7 +43,10 @@ export class AuthService {
     }
   }
 
-  logoutUser() {
-    sessionStorage.removeItem('user');
+  logoutUser(usuario: string) : Observable<any> {
+    let contenido = "[+LOGOUT][+USER]"+usuario+"[-USER][-LOGOUT]";
+    return this.http
+    .post(this.baseUrl, {contenido}, {headers: this.headers})
+    .pipe(map(data => data));
   }
 }

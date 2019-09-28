@@ -88,20 +88,6 @@ body.sidebar2 #wrapper.toggled {
   position: relative;
 }
 
-/*
-@media (max-width: 350px) {
-  #content-wrapper {
-    padding-top: 75px !important;
-  }
-}
-
-@media (max-width: 326px) {
-  #content-wrapper {
-    padding-top: 98px !important;
-  }
-}
-*/
-
 /*Cuando la pantalla se hace pequeña*/
 @media (max-width: 768px) {
   .sidebar {
@@ -124,10 +110,16 @@ body.sidebar2 #wrapper.toggled {
     position: relative;
     padding: 4px;
     padding-top: 15px;
+    padding-bottom: 20px;
   }
   #wrapper.toggled #content-wrapper {
     position: relative;
     margin-right: -225px;
+  }
+
+  footer.sticky-footer{
+      height: 20px !important;
+      padding-top: 0rem !important;
   }
 
 }
@@ -254,6 +246,7 @@ body.sidebar2 #wrapper.toggled {
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
+
 
 .scroll-to-top {
   position: fixed;
@@ -385,18 +378,41 @@ body.sidebar2 #wrapper.toggled {
 }
 
 footer.sticky-footer {
+  bottom: 0 !important; /*Hasta arriba*/
   display: -webkit-box;
   display: -ms-flexbox;
   display: block;
-  position: absolute;
+  position: fixed;
   right: 0;
-  bottom: -80;
   width: 100%;
-  height: 80px;
-  background-color: #e9ecef;
+  height: 50px;
+  background-color: #f9f9f9;
+  padding-top: 1rem;
 }
 
 footer.sticky-footer .copyright {
   line-height: 1;
   font-size: 0.8rem;
+  color: #999;
+}
+
+.card-header.archivo{
+  padding-bottom: 0;
+  border-bottom:0;
+}
+
+
+#myTab .nav-item .nav-link,  #myTab .nav-item .link{
+  color: #212529;
+}
+
+#myTab .nav-item .nav-link:active , #myTab .nav-item .nav-link:focus, #myTab .nav-item .nav-link:hover,
+#myTab .nav-item .link:active, #myTab .nav-item .link:focus, #myTab .nav-item .link:hover{
+  color: rgb(116, 103, 103);
+  text-decoration: none;
+}
+
+#myTab .nav-item .nav-link.active ,
+#myTab .nav-item .link.active{
+  color: rgb(116, 103, 103);
 }

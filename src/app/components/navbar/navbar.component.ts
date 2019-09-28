@@ -3,7 +3,6 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserInterface } from 'src/app/models/user.interface';
 import { Router } from '@angular/router';
 import { isNullOrUndefined } from 'util';
-import { $ } from 'protractor';
 
 const parserLUP = require('../../parser/parserLup');
 
@@ -45,6 +44,7 @@ export class NavbarComponent implements OnInit {
           let res = ast.getLogout();
           if(res){
             sessionStorage.removeItem('user');
+            sessionStorage.removeItem('struc');
             this.router.navigate(['/ingresar']);
           } else {
             this.errorModal = 'El usuario no coincide.';

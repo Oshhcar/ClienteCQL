@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     if(this.router.url.toString() == '/'){
       this.router.navigate(['/inicio']);
+      //window.location.href = "/inicio";
     }
     this.titleService.setTitle("Inicio - CQL Teacher");
   }

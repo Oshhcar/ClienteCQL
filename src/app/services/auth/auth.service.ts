@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { isNullOrUndefined } from 'util';
 
 import { UserInterface } from '../../models/user.interface';
+import { NodeInterface } from '../../models/node.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -48,5 +49,39 @@ export class AuthService {
     return this.http
     .post(this.baseUrl, {contenido}, {headers: this.headers})
     .pipe(map(data => data));
+  }
+
+  rollback() : Observable<any> {
+    let contenido = "[+QUERY][+USER]admin[-USER][+DATA]rollback;[-DATA][-QUERY]";
+    return this.http
+    .post(this.baseUrl, {contenido}, {headers: this.headers})
+    .pipe(map(data => data));
+  }
+
+  generarStruc(usuario: string) : Observable<any> {
+    let contenido = "[+STRUC][+USER]"+usuario+"[-USER][-STRUC]";
+    return this.http
+    .post(this.baseUrl, {contenido}, {headers: this.headers})
+    .pipe(map(data => data));
+  }
+
+  setStruc (struc: NodeInterface) {
+    if(!isNullOrUndefined(struc)){
+      let struc_string = JSON.stringify(struc);
+      sessionStorage.setItem('struc', struc_string);
+    }
+  }
+
+  getStruc (): NodeInterface [] {
+    let struc_string = sessionStorage.getItem('struc');
+
+    if (!isNullOrUndefined(struc_string)){
+      let struc: NodeInterface = JSON.parse(struc_string);
+      if(!isNullOrUndefined(struc.children)){
+        return struc.children;
+      }
+      return [{name:"Empty"}];
+    }
+    return [{name:"Empty"}];
   }
 }

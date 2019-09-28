@@ -1,5 +1,7 @@
 import { Login } from './Login';
 import { Logout } from './Logout';
+import { NodeInterface } from '../../models/node.interface';
+import { Databases } from './Databases';
 
 export class AST {
     constructor(public nodos: any[]){
@@ -35,5 +37,18 @@ export class AST {
         }
 
         return false;
+    }
+
+    public getStruc(): NodeInterface{
+
+        for(let i = 0; i < this.nodos.length; i++){
+            let nodo = this.nodos[i];
+            
+            if(nodo instanceof Databases){
+                return nodo.getStruc();
+            }
+        }
+
+        return null;
     }
 }

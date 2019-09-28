@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { MatTreeModule, MatIconModule, MatButtonModule } from '@angular/material'
 
 //Services
 import { AuthService } from './services/auth/auth.service';
@@ -18,6 +19,10 @@ import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { Page404Component } from './components/page404/page404.component';
+import { AvanzadoComponent } from './components/avanzado/avanzado.component';
+import { IntermedioComponent } from './components/intermedio/intermedio.component';
+import { PrincipianteComponent } from './components/principiante/principiante.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,14 +31,21 @@ import { Page404Component } from './components/page404/page404.component';
     LoginComponent,
     NavbarComponent,
     SidebarComponent,
-    Page404Component
+    Page404Component,
+    AvanzadoComponent,
+    IntermedioComponent,
+    PrincipianteComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    BrowserAnimationsModule,
+    MatTreeModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [
     Title,

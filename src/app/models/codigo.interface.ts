@@ -1,3 +1,3 @@
-export interface ContenidoInterface {
+export interface CodigoInterface {
     contenido?: string;
 }

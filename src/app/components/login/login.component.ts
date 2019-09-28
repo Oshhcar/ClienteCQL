@@ -31,11 +31,24 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle("Iniciar Sesión - CQL Teacher");
-
+    
     let user: UserInterface = this.authService.getUser();
     if(!isNullOrUndefined(user)){
       this.router.navigate(['/inicio']);
     }
+
+    this.authService.rollback()
+    .subscribe(data =>{
+      if(data.error!=null){
+        console.log("Error de conexión, rollback.");
+      }
+      else {
+        console.log("Rollback ok.");
+      }
+    },
+    error => {
+      console.log(error);
+    });
   }
 
   onLogin(f: NgForm): void {
@@ -52,8 +65,29 @@ export class LoginComponent implements OnInit {
           if(!isNullOrUndefined(ast)){
             let res = ast.getLogin();
             if(res){
+
+              this.authService.generarStruc(this.user.usuario)
+              .subscribe(data => {
+                if(data.error == null){
+                  let cad = data.toString().split('$').join('');
+                  console.log(cad);
+                
+                  const ast = parserLUP.parse(data.toString());
+                  
+                  if(!isNullOrUndefined(ast)){
+                    let struc = ast.getStruc();
+                    this.authService.setStruc(struc);
+                  }
+
+                }
+              },
+              error =>{
+                console.log(error);
+              });
+
               this.authService.setUser(this.user);
-              this.router.navigate(['/inicio']);
+              this.router.navigate(['/']);
+              //window.location.href = "/inicio";
             } else {
               this.error = 'El usuario y la contraseña no coinciden.';
             }

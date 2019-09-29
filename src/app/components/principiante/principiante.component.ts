@@ -53,6 +53,7 @@ export class PrincipianteComponent implements OnInit {
   public toolbox: string = '<xml id="toolbox" style="display: none">' +
 
     '<category name="Sentencias">' +
+    '<block type="use_block"></block>' +
     '<block type="sent_select"></block>' +
     '<block type="sent_insert"></block>' +
     '<block type="sent_delete"></block>' +
@@ -74,9 +75,11 @@ export class PrincipianteComponent implements OnInit {
     '</category>' +
 
     '<category name="Valores">' +
-    '<block type="text"></block>' +
+    '<block type="cadena"></block>' +
     '<block type="math_number"></block>' +
     '<block type="boolean_type"></block>' +
+    '<block type="date"></block>' +
+    '<block type="time"></block>' +
     //'<block type="text_print"></block>' +
     '</category>' +
 
@@ -110,14 +113,14 @@ export class PrincipianteComponent implements OnInit {
   };
   */
 
- error = '';
- mensaje = '';
+  error = '';
+  mensaje = '';
 
- errorEditor: ErrorInterface[] = [];
+  errorEditor: ErrorInterface[] = [];
   consolaEditor = '';
   sendEditor = '';
   recEditor = '';
-  selects: FileInterface[]=[];
+  selects: FileInterface[] = [];
 
   createBlocks() {
     this.workspacePlayground = Blockly.inject('blocklyDiv',
@@ -129,14 +132,14 @@ export class PrincipianteComponent implements OnInit {
     var code = Blockly.JavaScript.workspaceToCode(this.workspacePlayground);
     //console.log(code);
     this.codeEditor.setValue(code);
-    this.codeEditor.gotoLine(1,0,false);
+    this.codeEditor.gotoLine(1, 0, false);
   }
 
-  onExecute(){
+  onExecute() {
     this.error = '';
     this.mensaje = '';
-    let data : string;
-    if(this.codeEditor.getSelectedText() == ""){
+    let data: string;
+    if (this.codeEditor.getSelectedText() == "") {
       data = this.codeEditor.getValue();
     } else {
       data = this.codeEditor.getSelectedText();
@@ -147,38 +150,38 @@ export class PrincipianteComponent implements OnInit {
     this.sendEditor += contenido;
 
     this.authService.ejecutarQuery(contenido)
-    .subscribe( data =>{
-      if(data.error == null){
-        //console.log(data.toString());
+      .subscribe(data => {
+        if (data.error == null) {
+          //console.log(data.toString());
 
-        this.recEditor += data.toString().split("$").join("");
+          this.recEditor += data.toString().split("$").join("");
 
-        const ast = parserLUP.parse(data.toString());
-        
-        if(!isNullOrUndefined(ast)){
+          const ast = parserLUP.parse(data.toString());
 
-          this.consolaEditor = ast.getMensajes();
-          this.errorEditor = ast.getErrores();
-          this.selects = ast.getData();
+          if (!isNullOrUndefined(ast)) {
 
+            this.consolaEditor = ast.getMensajes();
+            this.errorEditor = ast.getErrores();
+            this.selects = ast.getData();
+
+          } else {
+            this.error = "Error de respuesta del Servidor, inténtelo de nuevo.";
+          }
         } else {
-          this.error = "Error de respuesta del Servidor, inténtelo de nuevo.";
-        }
-      } else{
           this.error = "Error de conexión, inténtelo de nuevo.";
-      }
-    },
-    error => {
-      console.log(error);
-      this.error = "Error de conexión, inténtelo de nuevo.";
-    });
+        }
+      },
+        error => {
+          console.log(error);
+          this.error = "Error de conexión, inténtelo de nuevo.";
+        });
   }
-  deleteSelect(pos: number){
-    this.selects.splice(pos,1); 
+  deleteSelect(pos: number) {
+    this.selects.splice(pos, 1);
   }
 
-  generarTabla(val: string, select: FileInterface){
-    let id = "select_"+ this.selects.indexOf(select);
+  generarTabla(val: string, select: FileInterface) {
+    let id = "select_" + this.selects.indexOf(select);
     let doc = document.getElementById(id);
     doc.innerHTML = val;
   }

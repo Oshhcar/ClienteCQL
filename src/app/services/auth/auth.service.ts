@@ -84,4 +84,11 @@ export class AuthService {
     }
     return [{name:"Empty"}];
   }
+
+  ejecutarQuery(contenido: string) : Observable<any>{
+    //console.log(contenido);
+    return this.http
+    .post(this.baseUrl, {contenido}, {headers: this.headers})
+    .pipe(map(data => data));
+  }
 }

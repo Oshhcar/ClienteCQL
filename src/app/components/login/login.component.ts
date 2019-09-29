@@ -86,15 +86,15 @@ export class LoginComponent implements OnInit {
               });
 
               this.authService.setUser(this.user);
-              this.router.navigate(['/']);
+              this.router.navigate(['/inicio']);
               //window.location.href = "/inicio";
             } else {
               this.error = 'El usuario y la contraseña no coinciden.';
             }
           }
-
           //this.authService.setUser(data.user);
-          this.router.navigate(['/inicio']);
+          //this.router.navigate(['/inicio']);
+          this.error = "Error en la respuesta del servidor, inténtelo de nuevo.";
         }
         else{
           this.error = "Error de conexión, inténtelo de nuevo.";

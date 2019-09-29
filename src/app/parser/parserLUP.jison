@@ -31,6 +31,11 @@ comment_multi2      "$" ([^$])* "$"* "$"
 "attributes" return 'attributes'
 "procedures" return 'procedures'
 "procedure" return 'procedure'
+"message"   return 'mensaje'
+"error"     return 'error'
+"line"      return 'line'
+"desc"      return 'desc'
+"data"      return 'data'
 
 /* Symbols */
 "+"                 return '+'
@@ -61,6 +66,9 @@ const Types = require('./ast/Types').Types;
 const Type = require('./ast/Type').Type;
 const Procedures = require('./ast/Procedures').Procedures;
 const Procedure = require('./ast/Procedure').Procedure;
+const Mensaje = require('./ast/Mensaje').Mensaje;
+const Error = require('./ast/Error').Error;
+const Data = require('./ast/Data').Data;
 
 %}
 
@@ -113,7 +121,13 @@ INSTRUCTION
     | PROCEDURES
         { $$ = $1; }
     | PROCEDURE 
-        { $$ = $1;}
+        { $$ = $1; }
+    | MENSAJE
+        { $$ = $1; }
+    | ERROR
+        { $$ = $1; }
+    | DATA 
+        { $$ = $1; }
     ;
 
 LOGIN
@@ -220,4 +234,47 @@ PROCEDURES
 PROCEDURE
     :'[' '+' procedure ']' '[' '+' name ']' comment_multi2 '[' '-' name ']' '[' '-' procedure ']'
         { $$ = new Procedure($9, null, (yylineno + 1), (@1.first_column + 1)); }
+    ;
+
+MENSAJE
+    :'[' '+' mensaje ']' comment_multi2 '[' '-' mensaje ']'
+        { $$ = new Mensaje($5, (yylineno + 1), (@1.first_column + 1)); }
+    ;
+
+ERROR
+    :'[' '+' error ']' INSTRUCTIONS_ERROR '[' '-' error ']'
+        { $$ = new Error($5, (yylineno + 1), (@1.first_column + 1)); }
+    |'[' '+' error ']' '[' '-' error ']'
+        { $$ = new Error(null, (yylineno + 1), (@1.first_column + 1)); }
+    ;
+
+INSTRUCTIONS_ERROR
+    : INSTRUCTION_ERROR
+        {
+            $$ = [];
+            $$.push($1);
+        }
+    | INSTRUCTIONS_ERROR INSTRUCTION_ERROR
+        {
+            $$ = $1;
+            $$.push($2);
+        }
+    ;
+
+INSTRUCTION_ERROR
+    : '[' '+' line ']' comment_multi2 '[' '-' line ']'
+        { $$ = new Atributo("line", $5); }
+    | '[' '+' column ']' comment_multi2 '[' '-' column ']'
+        { $$ = new Atributo("column", $5); }
+    | '[' '+' type ']' comment_multi2 '[' '-' type ']'
+        { $$ = new Atributo("type", $5); }
+    | '[' '+' desc ']' comment_multi2 '[' '-' desc ']'
+        { $$ = new Atributo("desc", $5); }
+    ;
+
+DATA
+    :'[' '+' data ']' comment_multi2 '[' '-' data ']'
+        { $$ = new Data($5, (yylineno + 1), (@1.first_column + 1)); }
+    |'[' '+' data ']' '[' '-' data ']'
+        { $$ = new Data(null, (yylineno + 1), (@1.first_column + 1)); }
     ;

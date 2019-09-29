@@ -23,6 +23,7 @@ import { AvanzadoComponent } from './components/avanzado/avanzado.component';
 import { IntermedioComponent } from './components/intermedio/intermedio.component';
 import { PrincipianteComponent } from './components/principiante/principiante.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditorComponent } from './components/editor/editor.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     Page404Component,
     AvanzadoComponent,
     IntermedioComponent,
-    PrincipianteComponent
+    PrincipianteComponent,
+    EditorComponent
   ],
   imports: [
     BrowserModule,

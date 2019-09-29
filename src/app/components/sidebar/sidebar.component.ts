@@ -75,7 +75,7 @@ export class SidebarComponent implements OnInit {
       let bd = document.getElementById('bd');
       bd.className = 'nav-item dropdown active show';
       let bdItem = document.getElementById('bdItem');
-      bdItem.className = 'dropdown-menu show';
+      bdItem.className = 'dropdown-menu scrollable-menu  show';
       this.toggled2 = false;
     } else {
       let element = document.getElementById('wrapper');
@@ -85,7 +85,7 @@ export class SidebarComponent implements OnInit {
       let bd = document.getElementById('bd');
       bd.className = 'nav-item dropdown';
       let bdItem = document.getElementById('bdItem');
-      bdItem.className = 'dropdown-menu';
+      bdItem.className = 'dropdown-menu scrollable-menu';
       this.toggled2 = true;
     }
     

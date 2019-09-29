@@ -1,0 +1,107 @@
+<div class="code-editor" #codeEditor></div>
+<div class="card-footer">
+    <div class="alert alert-danger" *ngIf="error">{{error}}</div>
+    <div class="alert alert-success" *ngIf="mensaje">{{mensaje}}</div>
+    <button class="btn btn-dark" (click)="onExecute()">Ejecutar Query</button>
+    &nbsp;
+    &nbsp;
+    <button class="btn btn-dark" (click)="onGuardar()">Guardar</button>
+</div>
+
+<div class="card mb-3">
+    <div class="card-header archivo">
+
+        <ul class="nav nav-tabs" id="myTab2" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="{{file.name}}console-tab" data-toggle="tab" href="#{{file.name}}console"
+                    role="tab" attr.aria-controls="{{file.name}}console" aria-selected="true">Consola</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="{{file.name}}error-tab" data-toggle="tab" href="#{{file.name}}error" role="tab"
+                    attr.aria-controls="{{file.name}}error" aria-selected="false">Errores</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="{{file.name}}paq-send-tab" data-toggle="tab" href="#{{file.name}}paqSendTab"
+                    role="tab" attr.aria-controls="{{file.name}}paqSendTab" aria-selected="false">Enviado</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="{{file.name}}paq-rec-tab" data-toggle="tab" href="#{{file.name}}paqRecTab"
+                    role="tab" attr.aria-controls="{{file.name}}paqRecTab" aria-selected="false">Recibido</a>
+            </li>
+
+            <ng-template ngFor let-select [ngForOf]="selects">
+                <li class="nav-item">
+                    <a class="nav-link" id="{{file.name}}{{selects.indexOf(select)}}-select" data-toggle="tab"
+                        href="#{{file.name}}select_{{selects.indexOf(select)}}" role="tab"
+                        attr.aria-controls="{{file.name}}{{selects.indexOf(select)}}-select"
+                        aria-selected="false">{{select.name}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="link" href="/avanzado#" (click)="deleteSelect(selects.indexOf(select))">
+                        <fa name="close" size="sm"></fa>
+                    </a>
+                </li>
+            </ng-template>
+
+        </ul>
+    </div>
+    <div class="card-body">
+
+        <div class="tab-content" id="myTabContent2">
+            <div class="tab-pane fade show active" id="{{file.name}}console" role="tabpanel"
+                attr.aria-labelledby="{{file.name}}console-tab">
+                <textarea class="form-control" id="{{file.name}}consola" rows="5" [(ngModel)]='consolaEditor'
+                    disabled></textarea>
+            </div>
+            <div class="tab-pane fade" id="{{file.name}}error" role="tabpanel"
+                attr.aria-labelledby="{{file.name}}error-tab">
+                <!--
+                <textarea class="form-control" id="{{file.name}}error" rows="5" [(ngModel)]='errorEditor'
+                    disabled></textarea>
+                    -->
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Error</th>
+                                <th>Descripción</th>
+                                <th>Línea</th>
+                                <th>Columna</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let e of errorEditor">
+                                <td>{{e.numero}}</td>
+                                <td>{{e.valor}}</td>
+                                <td>{{e.descripcion}}</td>
+                                <td>{{e.linea}}</td>
+                                <td>{{e.columna}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="{{file.name}}paqSendTab" role="tabpanel"
+                attr.aria-labelledby="{{file.name}}paqSendTab">
+                <textarea class="form-control" id="{{file.name}}send" rows="5" [(ngModel)]='sendEditor'
+                    disabled></textarea>
+            </div>
+            <div class="tab-pane fade" id="{{file.name}}paqRecTab" role="tabpanel"
+                attr.aria-labelledby="{{file.name}}paqRecTab">
+                <textarea class="form-control" id="{{file.name}}rec" rows="5" [(ngModel)]='recEditor'
+                    disabled></textarea>
+            </div>
+
+            <div *ngFor="let select of selects" class="tab-pane fade"
+                id="{{file.name}}select_{{selects.indexOf(select)}}" role="tabpanel"
+                attr.aria-labelledby="{{file.name}}{{selects.indexOf(select)}}_select">
+                
+                {{generarTabla(select.content, file.name, select)}}
+            </div>
+
+        </div>
+
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>

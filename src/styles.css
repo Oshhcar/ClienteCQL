@@ -418,5 +418,13 @@ footer.sticky-footer .copyright {
   color: rgb(116, 103, 103);
 }
 
+/*
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+*/
+
+.scrollable-menu {
+  height: auto;
+  max-height: calc(100vh - 175px);
+  overflow-x: hidden;
+}

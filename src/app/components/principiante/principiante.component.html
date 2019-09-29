@@ -1,1 +1,30 @@
-<p>principiante works!</p>
+<app-navbar></app-navbar>
+
+<div id="wrapper">
+    <app-sidebar></app-sidebar>
+    <div id="content-wrapper">
+        <div class="container-fluid">
+
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a id="link" href="#" routerLink="/inicio">Inicio</a>
+                </li>
+                <li class="breadcrumb-item active">Principiante</li>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group mr-2">
+                        <div class="input-group-append">
+                            <button type="button" class="input-group-text" (click)="onCode($event)">Abrir</button>
+                        </div>
+                    </div>
+                </div>
+            </ol>
+
+            <ngx-blockly [config]="config" [generatorConfig]="generatorConfig" (javascriptCode)="onCode($event)"
+                (pythonCode)="onCode($event)"> </ngx-blockly>
+        </div>
+    </div>
+</div>

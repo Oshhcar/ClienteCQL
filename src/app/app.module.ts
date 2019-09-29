@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { MatTreeModule, MatIconModule, MatButtonModule } from '@angular/material'
 
+import { NgxBlocklyModule } from 'ngx-blockly';
+
 //Services
 import { AuthService } from './services/auth/auth.service';
 
@@ -47,7 +49,8 @@ import { EditorComponent } from './components/editor/editor.component';
     BrowserAnimationsModule,
     MatTreeModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    NgxBlocklyModule
   ],
   providers: [
     Title,

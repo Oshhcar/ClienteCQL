@@ -32,7 +32,12 @@
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/popper.js/dist/umd/popper.js",
-              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "./node_modules/ngx-blockly/scripts/blockly/blockly_compressed.js",
+              "./node_modules/ngx-blockly/scripts/blockly/blocks_compressed.js",
+              "./node_modules/ngx-blockly/scripts/blockly/python_compressed.js",
+              "./node_modules/ngx-blockly/scripts/blockly/msg/js/en.js",
+              "./src/assets/custom-blocks.js"
             ]
           },
           "configurations": {

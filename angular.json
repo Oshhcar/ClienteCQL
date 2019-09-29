@@ -37,6 +37,7 @@
               "./node_modules/ngx-blockly/scripts/blockly/blocks_compressed.js",
               "./node_modules/ngx-blockly/scripts/blockly/python_compressed.js",
               "./node_modules/ngx-blockly/scripts/blockly/msg/js/en.js",
+              "./node_modules/ngx-blockly/scripts/blockly/javascript_compressed.js",
               "./src/assets/custom-blocks.js"
             ]
           },
